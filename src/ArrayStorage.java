@@ -6,18 +6,21 @@ import java.util.NoSuchElementException;
  */
 public class ArrayStorage {
     Resume[] storage = new Resume[10000];
+    int size;
 
     void clear() {
-        Arrays.fill(storage, 0, size(), null);
+        Arrays.fill(storage, 0, size, null);
+        size = 0;
     }
 
-    void save(Resume r) {
-        int index = size();
-        storage[index] = r;
+    void save(Resume resume) {
+        int index = size;
+        storage[index] = resume;
+        size++;
     }
 
     Resume get(String uuid) {
-        int len = size();
+        int len = size;
         for (int i = 0; i < len; i++) {
             if (storage[i].uuid.equals(uuid)) {
                 return storage[i];
@@ -27,11 +30,11 @@ public class ArrayStorage {
     }
 
     void delete(String uuid) {
-        int len = size();
-        for (int i = 0; i < len; i++) {
+        for (int i = 0; i < size; i++) {
             if (storage[i].uuid.equals(uuid)) {
-                System.arraycopy(storage, i + 1, storage, i, len - (i + 1));
-                storage[len - 1] = null;
+                size--;
+                int len = size - i;
+                System.arraycopy(storage, i + 1, storage, i, len);
                 break;
             }
         }
@@ -41,16 +44,12 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-        Resume[] listResume = new Resume[size()];
-        System.arraycopy(storage, 0, listResume, 0, size());
+        Resume[] listResume = new Resume[size];
+        System.arraycopy(storage, 0, listResume, 0, size);
         return listResume;
     }
 
     int size() {
-        int len = 0;
-        for (Resume resume : storage) {
-            if (resume != null) len++;
-        }
-        return len;
+        return size;
     }
 }
