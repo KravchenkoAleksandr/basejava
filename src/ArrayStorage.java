@@ -18,7 +18,7 @@ public class ArrayStorage {
         }
         String noRoom = "Места для добавления резюме недостаточно";
         String elementAlreadyExists = "Резюме " + resume.uuid + " существует";
-        System.out.println(isExists(resume.uuid) ? elementAlreadyExists : noRoom);
+        System.out.println(size >= SUM_NUM_RESUME ? noRoom : elementAlreadyExists);
     }
 
     Resume get(String uuid) {
