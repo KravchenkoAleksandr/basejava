@@ -6,8 +6,8 @@ import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 public class ArrayStorage {
-    private static final int SUM_NUM_RESUME = 10000;
-    private Resume[] storage = new Resume[SUM_NUM_RESUME];
+    private static final int STORAGE_LIMIT = 10000;
+    private final Resume[] storage = new Resume[STORAGE_LIMIT];
     private int size;
 
     public void clear() {
@@ -16,37 +16,32 @@ public class ArrayStorage {
     }
 
     public void save(Resume resume) {
-        if (size < SUM_NUM_RESUME && !isExists(resume.getUuid())) {
+        int index = getIndex(resume.getUuid());
+        if (size >= STORAGE_LIMIT) {
+            System.out.println("Места для добавления резюме недостаточно");
+        } else if (isExisting(index)) {
+            System.out.println("Резюме " + resume.getUuid() + " существует");
+        } else {
             storage[size++] = resume;
-            return;
         }
-        String noRoom = "Места для добавления резюме недостаточно";
-        String elementAlreadyExists = "Резюме " + resume.getUuid() + " существует";
-        System.out.println(size >= SUM_NUM_RESUME ? noRoom : elementAlreadyExists);
     }
 
     public Resume get(String uuid) {
-        if (isExists(uuid)) {
-            for (int i = 0; i < size; i++) {
-                if (storage[i].getUuid().equals(uuid)) {
-                    return storage[i];
-                }
-            }
+        int index = getIndex(uuid);
+        if (isExisting(index)) {
+            return storage[index];
         }
         throw new NoSuchElementException("Резюме " + uuid + " не найдено");
     }
 
     public void delete(String uuid) {
-        if (isExists(uuid)) {
-            for (int i = 0; i < size; i++) {
-                if (storage[i].getUuid().equals(uuid)) {
-                    size--;
-                    int len = size - i;
-                    System.arraycopy(storage, i + 1, storage, i, len);
-                    storage[size] = null;
-                    return;
-                }
-            }
+        int index = getIndex(uuid);
+        if (isExisting(index)) {
+            size--;
+            int len = size - index;
+            System.arraycopy(storage, index + 1, storage, index, len);
+            storage[size] = null;
+            return;
         }
         System.out.println("Резюме " + uuid + " не найдено для удаления");
     }
@@ -60,21 +55,29 @@ public class ArrayStorage {
     }
 
     public void update(Resume resume) {
-        if (isExists(resume.getUuid())) {
-            for (int i = 0; i < size; i++) {
-                if (storage[i] == resume) {
-                    storage[i] = resume;
-                    return;
-                }
-            }
+        int index = getIndex(resume.getUuid());
+        if (isExisting(index)) {
+            storage[index] = resume;
+            return;
         }
         System.out.println("Резюме " + resume.getUuid() + " не найдено для обновления");
     }
 
-    private boolean isExists(String uuid) {
+    private boolean isExisting(int index) {
         for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) return true;
+            if (i == index) {
+                return true;
+            }
         }
         return false;
+    }
+
+    private int getIndex(String uuid) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i].getUuid().equals(uuid)) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
