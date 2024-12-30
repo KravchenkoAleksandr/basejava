@@ -3,7 +3,6 @@ package com.basejava.webapp.storage;
 import com.basejava.webapp.model.Resume;
 
 import java.util.Arrays;
-import java.util.NoSuchElementException;
 
 public class ArrayStorage {
     private static final int STORAGE_LIMIT = 10000;
@@ -22,7 +21,8 @@ public class ArrayStorage {
         } else if (isExisting(index)) {
             System.out.println("Резюме " + resume.getUuid() + " существует");
         } else {
-            storage[size++] = resume;
+            storage[size] = resume;
+            size++;
         }
     }
 
@@ -31,16 +31,16 @@ public class ArrayStorage {
         if (isExisting(index)) {
             return storage[index];
         }
-        throw new NoSuchElementException("Резюме " + uuid + " не найдено");
+        System.out.println("Резюме " + uuid + " не найдено");
+        return null;
     }
 
     public void delete(String uuid) {
         int index = getIndex(uuid);
         if (isExisting(index)) {
+            storage[index] = storage[size - 1];
+            storage[size - 1] = null;
             size--;
-            int len = size - index;
-            System.arraycopy(storage, index + 1, storage, index, len);
-            storage[size] = null;
             return;
         }
         System.out.println("Резюме " + uuid + " не найдено для удаления");
@@ -64,12 +64,7 @@ public class ArrayStorage {
     }
 
     private boolean isExisting(int index) {
-        for (int i = 0; i < size; i++) {
-            if (i == index) {
-                return true;
-            }
-        }
-        return false;
+        return index >= 0;
     }
 
     private int getIndex(String uuid) {
