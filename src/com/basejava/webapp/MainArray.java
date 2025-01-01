@@ -1,6 +1,8 @@
 package com.basejava.webapp;
 
+import com.basejava.webapp.model.AbstractArrayStorage;
 import com.basejava.webapp.model.Resume;
+import com.basejava.webapp.model.SortedArrayStorage;
 import com.basejava.webapp.storage.ArrayStorage;
 
 import java.io.BufferedReader;
@@ -13,7 +15,7 @@ import java.util.NoSuchElementException;
  * (just run, no need to understand)
  */
 public class MainArray {
-    private final static ArrayStorage ARRAY_STORAGE = new ArrayStorage();
+    static final AbstractArrayStorage ARRAY_STORAGE = new SortedArrayStorage();
 
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
