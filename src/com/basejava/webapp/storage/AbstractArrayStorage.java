@@ -1,6 +1,6 @@
-package com.basejava.webapp.model;
+package com.basejava.webapp.storage;
 
-import com.basejava.webapp.storage.Storage;
+import com.basejava.webapp.model.Resume;
 
 public abstract class AbstractArrayStorage implements Storage {
     protected static final int STORAGE_LIMIT = 10000;

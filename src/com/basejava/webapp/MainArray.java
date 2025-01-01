@@ -1,9 +1,8 @@
 package com.basejava.webapp;
 
-import com.basejava.webapp.model.AbstractArrayStorage;
+import com.basejava.webapp.storage.AbstractArrayStorage;
 import com.basejava.webapp.model.Resume;
-import com.basejava.webapp.model.SortedArrayStorage;
-import com.basejava.webapp.storage.ArrayStorage;
+import com.basejava.webapp.storage.SortedArrayStorage;
 
 import java.io.BufferedReader;
 import java.io.IOException;
