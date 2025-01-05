@@ -9,11 +9,6 @@ public abstract class AbstractArrayStorage implements Storage {
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size = 0;
 
-    @Override
-    public int size() {
-        return size;
-    }
-
     public void clear() {
         Arrays.fill(storage, 0, size, null);
         size = 0;
@@ -58,10 +53,6 @@ public abstract class AbstractArrayStorage implements Storage {
         System.out.println("Резюме " + resume.getUuid() + " не найдено для обновления");
     }
 
-    public Resume[] getAll() {
-        return Arrays.copyOf(storage, size);
-    }
-
     public final Resume get(String uuid) {
         int index = getIndex(uuid);
         if (index == -1) {
@@ -69,6 +60,15 @@ public abstract class AbstractArrayStorage implements Storage {
             return null;
         }
         return storage[index];
+    }
+
+    public Resume[] getAll() {
+        return Arrays.copyOf(storage, size);
+    }
+
+    @Override
+    public int size() {
+        return size;
     }
 
     protected abstract int getIndex(String uuid);
