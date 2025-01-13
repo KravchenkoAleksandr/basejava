@@ -1,4 +1,4 @@
-package com.basejava.webapp.model;
+package com.webapp.model;
 
 import java.util.Objects;
 
@@ -9,6 +9,10 @@ public class Resume implements Comparable<Resume> {
 
     // Unique identifier
     private String uuid;
+
+    public Resume(String uuid) {
+        this.uuid = uuid;
+    }
 
     public String getUuid() {
         return uuid;

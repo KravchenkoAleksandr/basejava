@@ -1,6 +1,6 @@
-package com.basejava.webapp.storage;
+package com.webapp.storage;
 
-import com.basejava.webapp.model.Resume;
+import com.webapp.model.Resume;
 
 import java.util.Arrays;
 
@@ -9,6 +9,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     @Override
     public void saveResume(Resume resume, int index) {
         index = -(index + 1);
+        System.arraycopy(storage, index, storage, index + 1, size - index);
         storage[index] = resume;
     }
 
@@ -22,8 +23,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     protected int getIndex(String uuid) {
-        Resume searchKey = new Resume();
-        searchKey.setUuid(uuid);
-        return Arrays.binarySearch(storage, 0, size, searchKey);
+        Resume searchKey = new Resume(uuid);
+        return Arrays.binarySearch(storage, 0, size , searchKey);
     }
 }

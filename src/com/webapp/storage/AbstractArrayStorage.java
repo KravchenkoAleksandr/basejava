@@ -1,6 +1,9 @@
-package com.basejava.webapp.storage;
+package com.webapp.storage;
 
-import com.basejava.webapp.model.Resume;
+import com.webapp.exception.ExistStorageException;
+import com.webapp.exception.NotExistStorageException;
+import com.webapp.exception.StorageException;
+import com.webapp.model.Resume;
 
 import java.util.Arrays;
 
@@ -17,11 +20,9 @@ public abstract class AbstractArrayStorage implements Storage {
     public void save(Resume resume) {
         int index = getIndex(resume.getUuid());
         if (size >= STORAGE_LIMIT) {
-            System.out.println("Места для добавления резюме недостаточно");
-            return;
+            throw new StorageException("Storage oferflow", resume.getUuid());
         } else if (index >= 0) {
-            System.out.println("Резюме " + resume.getUuid() + " существует");
-            return;
+            throw new ExistStorageException(resume.getUuid());
         }
         saveResume(resume, index);
         size++;
@@ -35,7 +36,7 @@ public abstract class AbstractArrayStorage implements Storage {
             size--;
             return;
         }
-        System.out.println("Резюме " + uuid + " не найдено для удаления");
+        throw new NotExistStorageException(uuid);
     }
 
     public void update(Resume resume) {
@@ -44,14 +45,13 @@ public abstract class AbstractArrayStorage implements Storage {
             storage[index] = resume;
             return;
         }
-        System.out.println("Резюме " + resume.getUuid() + " не найдено для обновления");
+        throw new NotExistStorageException(resume.getUuid());
     }
 
     public final Resume get(String uuid) {
         int index = getIndex(uuid);
-        if (index == -1) {
-            System.out.println("Resume " + uuid + " not exist");
-            return null;
+        if (index < 0) {
+            throw new NotExistStorageException(uuid);
         }
         return storage[index];
     }

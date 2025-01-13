@@ -1,8 +1,8 @@
-package com.basejava.webapp;
+package com.webapp;
 
-import com.basejava.webapp.storage.AbstractArrayStorage;
-import com.basejava.webapp.model.Resume;
-import com.basejava.webapp.storage.SortedArrayStorage;
+import com.webapp.storage.AbstractArrayStorage;
+import com.webapp.model.Resume;
+import com.webapp.storage.SortedArrayStorage;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,8 +38,7 @@ public class MainArray {
                     System.out.println(ARRAY_STORAGE.size());
                     break;
                 case "save":
-                    r = new Resume();
-                    r.setUuid(uuid);
+                    r = new Resume(uuid);
                     ARRAY_STORAGE.save(r);
                     printAll();
                     break;
