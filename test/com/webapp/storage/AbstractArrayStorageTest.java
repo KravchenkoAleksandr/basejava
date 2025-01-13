@@ -80,7 +80,7 @@ public abstract class AbstractArrayStorageTest {
                 storage.save(new Resume("uuid10_001"));
                 fail("Переполнение произошло раньше времени");
             }catch (StorageException e) {
-
+                System.out.println("Тест успешно выполнен");
             }
         }
 
