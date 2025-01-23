@@ -1,10 +1,10 @@
 package com.webapp;
 
 import com.webapp.model.Resume;
-import com.webapp.storage.SortedArrayStorage;
+import com.webapp.storage.ArrayStorage;
 
 public class MainTestArrayStorage {
-    static final SortedArrayStorage ARRAY_STORAGE = new SortedArrayStorage();
+    static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) {
         Resume r1 = new Resume("uuid1");
