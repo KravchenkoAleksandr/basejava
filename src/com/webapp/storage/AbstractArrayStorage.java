@@ -15,26 +15,26 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         size = 0;
     }
 
-    public void addResume(Resume resume, int index) {
+    public void addResume(Resume resume, Object searchKey) {
         if (size >= STORAGE_LIMIT) {
             throw new StorageException("Storage oferflow", resume.getUuid());
         }
-        saveResume(resume, index);
+        saveResume(resume, (int) searchKey);
         size++;
     }
 
-    public void removeResume(int index) {
-        deleteResume(index);
+    public void removeResume(Object searchKey) {
+        deleteResume((int) searchKey);
         storage[size - 1] = null;
         size--;
     }
 
-    public void updateResume(Resume resume, int index) {
-        storage[index] = resume;
+    public void updateResume(Resume resume, Object searchKey) {
+        storage[(int) searchKey] = resume;
     }
 
-    public final Resume getResume(int index) {
-        return storage[index];
+    public final Resume getResume(Object searchKey) {
+        return storage[(int) searchKey];
     }
 
     public Resume[] getAllResume() {
