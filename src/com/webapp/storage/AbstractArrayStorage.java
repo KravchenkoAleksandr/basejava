@@ -15,7 +15,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         size = 0;
     }
 
-    public void addResume(Resume resume, Object searchKey) {
+    public void addResume(Object searchKey, Resume resume) {
         if (size >= STORAGE_LIMIT) {
             throw new StorageException("Storage oferflow", resume.getUuid());
         }

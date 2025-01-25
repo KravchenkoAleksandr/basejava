@@ -14,7 +14,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public void addResume(Resume resume, Object searchKey) {
+    public void addResume(Object searchKey, Resume resume) {
         storage.add(resume);
     }
 
