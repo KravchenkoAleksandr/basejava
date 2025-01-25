@@ -9,7 +9,7 @@ public abstract class AbstractStorage implements Storage {
     @Override
     public void save(Resume resume) {
         Object searchKey = getNotExistingSearchKey(resume.getUuid());
-        addResume(resume, (int) searchKey);
+        addResume(resume, searchKey);
     }
 
     @Override
@@ -21,13 +21,13 @@ public abstract class AbstractStorage implements Storage {
     @Override
     public void update(Resume resume) {
         Object searchKey = getExistingSearchKey(resume.getUuid());
-        updateResume(resume, (int) searchKey);
+        updateResume(resume, searchKey);
     }
 
     @Override
     public final Resume get(String uuid) {
         Object searchKey = getExistingSearchKey(uuid);
-        return getResume((int) searchKey);
+        return getResume(searchKey);
     }
 
     @Override
