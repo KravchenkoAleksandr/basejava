@@ -3,14 +3,15 @@ package com.webapp;
 import com.webapp.model.Resume;
 import com.webapp.storage.ArrayStorage;
 import com.webapp.storage.MapStorage;
+import com.webapp.storage.MapStorageFullName;
 
 public class MainTestArrayStorage {
     static final MapStorage ARRAY_STORAGE = new MapStorage();
 
     public static void main(String[] args) {
-        Resume r1 = new Resume("uuid1");
-        Resume r2 = new Resume("uuid2");
-        Resume r3 = new Resume("uuid3");
+        Resume r1 = new Resume("uuid1", "Светикова Света");
+        Resume r2 = new Resume("uuid2", "Галкина Галя");
+        Resume r3 = new Resume("uuid3", "Полякова Полина");
 
         ARRAY_STORAGE.save(r1);
         ARRAY_STORAGE.save(r2);
@@ -19,7 +20,7 @@ public class MainTestArrayStorage {
         System.out.println("Get r1: " + ARRAY_STORAGE.get(r1.getUuid()));
         System.out.println("Size: " + ARRAY_STORAGE.size());
 
-        //System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
+        System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
 
         printAll();
         ARRAY_STORAGE.delete(r1.getUuid());
@@ -32,7 +33,7 @@ public class MainTestArrayStorage {
 
     static void printAll() {
         System.out.println("\nGet All");
-        for (Resume r : ARRAY_STORAGE.getAll()) {
+        for (Resume r : ARRAY_STORAGE.getAllSorted()) {
             System.out.println(r);
         }
     }

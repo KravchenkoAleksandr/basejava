@@ -6,6 +6,8 @@ import com.webapp.model.Resume;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class AbstractStorageTest {
@@ -19,10 +21,10 @@ public abstract class AbstractStorageTest {
     private static final String UUID2 = "uuid2";
     private static final String UUID3 = "uuid3";
     private static final String UUID4 = "uuid4";
-    private static final Resume RESUME_1 = new Resume(UUID1);
-    private static final Resume RESUME_2 = new Resume(UUID2);
-    private static final Resume RESUME_3 = new Resume(UUID3);
-    private static final Resume RESUME_4 = new Resume(UUID4);
+    private static final Resume RESUME_1 = new Resume(UUID1, "Петров Петр");
+    private static final Resume RESUME_2 = new Resume(UUID2, "Светикова Света");
+    private static final Resume RESUME_3 = new Resume(UUID3, "Иванов Иван");
+    private static final Resume RESUME_4 = new Resume(UUID4, "Галкина Галя");
 
     @BeforeEach
     public void setUp() {
@@ -37,6 +39,7 @@ public abstract class AbstractStorageTest {
         assertSize(3);
     }
 
+
     private void assertSize(int expectedSize) {
         assertEquals(expectedSize, storage.size());
     }
@@ -45,7 +48,6 @@ public abstract class AbstractStorageTest {
     public void clear() {
         storage.clear();
         assertSize(0);
-        assertArrayEquals(new Resume[0], storage.getAll());
     }
 
     @Test
@@ -60,9 +62,9 @@ public abstract class AbstractStorageTest {
     }
 
     @Test
-    public void getAll() {
-        Resume[] expected = {RESUME_1, RESUME_2, RESUME_3};
-        assertArrayEquals(expected, storage.getAll());
+    public void getAllSorted() {
+        List<Resume> expected = List.of(RESUME_3, RESUME_1, RESUME_2);
+        assertEquals(expected, storage.getAllSorted());
     }
 
     @Test
@@ -95,7 +97,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void get() {
-        for (Resume resume : storage.getAll()) {
+        for (Resume resume : storage.getAllSorted()) {
             assertGet(resume);
         }
     }

@@ -3,10 +3,12 @@ package com.webapp.storage;
 import com.webapp.model.Resume;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ListStorage extends AbstractStorage {
-    private List<Resume> storage = new ArrayList<>();
+    private final List<Resume> storage = new ArrayList<>();
 
     @Override
     public void clear() {
@@ -23,17 +25,18 @@ public class ListStorage extends AbstractStorage {
     }
 
     public void updateResume(Resume resume, Object searchKey) {
-        storage.set((int) searchKey, resume);
+        storage.set((Integer) searchKey, resume);
     }
 
     public Resume getResume(Object searchKey) {
-        return storage.get((int) searchKey);
+        return storage.get((Integer) searchKey);
     }
 
     @Override
-    public Resume[] getAllResume() {
-        return storage.toArray(new Resume[0]);
+    public List<Resume> getAll() {
+        return storage;
     }
+
 
     @Override
     protected boolean isExist(Object searchKey) {
@@ -46,7 +49,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected Object getIndex(String uuid) {
+    protected Integer getSearchKey(String uuid) {
         for (int i = 0; i < storage.size(); i++) {
             if (storage.get(i).getUuid().equals(uuid)) {
                 return i;

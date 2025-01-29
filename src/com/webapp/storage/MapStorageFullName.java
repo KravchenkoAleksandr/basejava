@@ -6,9 +6,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MapStorage extends AbstractStorage {
-    private final Map<String, Resume> storage = new LinkedHashMap<>();
+public class MapStorageFullName extends AbstractStorage {
 
+    private final Map<String, Resume> storage = new LinkedHashMap<>();
 
     @Override
     protected void addResume(Object searchKey, Resume resume) {
@@ -31,9 +31,10 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected Object getSearchKey(String uuid) {
-        return uuid;
+    protected Object getSearchKey(String fullName) {
+        return fullName;
     }
+
 
     @Override
     protected List<Resume> getAll() {
@@ -55,4 +56,3 @@ public class MapStorage extends AbstractStorage {
         return storage.size();
     }
 }
-

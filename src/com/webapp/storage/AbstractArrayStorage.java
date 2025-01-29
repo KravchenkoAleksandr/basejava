@@ -3,7 +3,9 @@ package com.webapp.storage;
 import com.webapp.exception.StorageException;
 import com.webapp.model.Resume;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
     protected static final int STORAGE_LIMIT = 10000;
@@ -19,31 +21,37 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         if (size >= STORAGE_LIMIT) {
             throw new StorageException("Storage oferflow", resume.getUuid());
         }
-        saveResume(resume, (int) searchKey);
+        saveResume(resume, (Integer) searchKey);
         size++;
     }
 
     public void removeResume(Object searchKey) {
-        deleteResume((int) searchKey);
+        deleteResume((Integer) searchKey);
         storage[size - 1] = null;
         size--;
     }
 
     public void updateResume(Resume resume, Object searchKey) {
-        storage[(int) searchKey] = resume;
+        storage[(Integer) searchKey] = resume;
     }
 
     public final Resume getResume(Object searchKey) {
-        return storage[(int) searchKey];
+        return storage[(Integer) searchKey];
     }
 
-    public Resume[] getAllResume() {
-        return Arrays.copyOf(storage, size);
+    @Override
+    public List<Resume> getAll() {
+        return Arrays.asList(storage);
     }
 
     @Override
     public int size() {
         return size;
+    }
+
+    @Override
+    protected boolean isExist(Object searchKey) {
+        return (Integer) searchKey >= 0;
     }
 
     protected abstract void deleteResume(int index);

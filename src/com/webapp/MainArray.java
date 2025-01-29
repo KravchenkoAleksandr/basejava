@@ -7,6 +7,7 @@ import com.webapp.storage.SortedArrayStorage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
@@ -38,8 +39,8 @@ public class MainArray {
                     System.out.println(ARRAY_STORAGE.size());
                     break;
                 case "save":
-                    r = new Resume(uuid);
-                    ARRAY_STORAGE.save(r);
+                    //r = new Resume(uuid);
+                    //ARRAY_STORAGE.save(r);
                     printAll();
                     break;
                 case "delete":
@@ -68,9 +69,9 @@ public class MainArray {
     }
 
     static void printAll() {
-        Resume[] all = ARRAY_STORAGE.getAll();
+        List<Resume> all = ARRAY_STORAGE.getAll();
         System.out.println("----------------------------");
-        if (all.length == 0) {
+        if (all.isEmpty()) {
             System.out.println("Empty");
         } else {
             for (Resume r : all) {
