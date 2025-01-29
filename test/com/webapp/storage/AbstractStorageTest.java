@@ -76,9 +76,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void saveExistResume() {
-        assertThrows(ExistStorageException.class, () -> {
-            storage.save(storage.get(RESUME_1.getUuid()));
-        });
+        assertThrows(ExistStorageException.class, () -> storage.save(storage.get(RESUME_1.getUuid())));
     }
 
     @Test
@@ -90,9 +88,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void deleteNotExist() {
-        assertThrows(NotExistStorageException.class, () -> {
-            storage.delete("dummy");
-        });
+        assertThrows(NotExistStorageException.class, () -> storage.delete("dummy"));
     }
 
     @Test
@@ -104,9 +100,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void getNotExist() {
-        assertThrows(NotExistStorageException.class, () -> {
-            storage.get("dummy");
-        });
+        assertThrows(NotExistStorageException.class, () -> storage.get("dummy"));
     }
 
     private void assertGet(Resume resume) {
