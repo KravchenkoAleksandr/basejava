@@ -1,15 +1,15 @@
 package com.webapp;
 
 import com.webapp.model.Resume;
-import com.webapp.storage.MapStorage;
+import com.webapp.storage.ListStorage;
 
 public class MainTestArrayStorage {
-    static final MapStorage ARRAY_STORAGE = new MapStorage();
+    static final ListStorage ARRAY_STORAGE = new ListStorage();
 
     public static void main(String[] args) {
-        Resume r1 = new Resume("uuid1", "Светикова Света");
-        Resume r2 = new Resume("uuid2", "Галкина Галя");
-        Resume r3 = new Resume("uuid3", "Полякова Полина");
+        Resume r1 = new Resume("Светикова Света");
+        Resume r2 = new Resume("Галкина Галя");
+        Resume r3 = new Resume("Полякова Полина");
 
         ARRAY_STORAGE.save(r1);
         ARRAY_STORAGE.save(r2);

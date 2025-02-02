@@ -9,7 +9,7 @@ import org.junit.platform.suite.api.Suite;
         SortedArrayStorageTest.class,
         ListStorageTest.class,
         MapStorageTest.class,
-        MapStorageFullNameTest.class
+        MapStorageResumeTest.class
 })
 public class AllStorageTest {
 }

@@ -17,14 +17,10 @@ public abstract class AbstractStorageTest {
         this.storage = storage;
     }
 
-    private static final String UUID1 = "uuid1";
-    private static final String UUID2 = "uuid2";
-    private static final String UUID3 = "uuid3";
-    private static final String UUID4 = "uuid4";
-    private static final Resume RESUME_1 = new Resume(UUID1, "Петров Петр");
-    private static final Resume RESUME_2 = new Resume(UUID2, "Светикова Света");
-    private static final Resume RESUME_3 = new Resume(UUID3, "Иванов Иван");
-    private static final Resume RESUME_4 = new Resume(UUID4, "Галкина Галя");
+    private static final Resume RESUME_1 = new Resume("uuid1", "Петров Петр");
+    private static final Resume RESUME_2 = new Resume("uuid2", "Светикова Света");
+    private static final Resume RESUME_3 = new Resume("uuid3", "Иванов Иван");
+    private static final Resume RESUME_4 = new Resume("uuid4", "Галкина Галя");
 
     @BeforeEach
     public void setUp() {
@@ -32,6 +28,10 @@ public abstract class AbstractStorageTest {
         storage.save(RESUME_1);
         storage.save(RESUME_2);
         storage.save(RESUME_3);
+        System.out.println("UUIDs в хранилище:");
+        for (Resume r : storage.getAllSorted()) {
+            System.out.println(r.getUuid());
+        }
     }
 
     @Test
@@ -81,6 +81,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void delete() {
+        System.out.println("Удаляем UUID: " + RESUME_1.getUuid());
         storage.delete(RESUME_1.getUuid());
         assertSize(2);
         assertThrows(NotExistStorageException.class, () -> storage.get(RESUME_1.getUuid()));

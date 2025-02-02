@@ -2,48 +2,49 @@ package com.webapp.storage;
 
 import com.webapp.model.Resume;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MapStorageFullName extends AbstractStorage {
+public class MapStorageResume extends AbstractStorage {
 
     private final Map<String, Resume> storage = new LinkedHashMap<>();
 
     @Override
     protected void addResume(Object searchKey, Resume resume) {
-        storage.put((String) searchKey, resume);
+        storage.put(resume.getUuid(), resume);
     }
 
     @Override
     protected void removeResume(Object searchKey) {
-        storage.remove(searchKey);
+        storage.remove(((Resume) searchKey).getUuid());
     }
 
     @Override
     protected void updateResume(Resume resume, Object searchKey) {
-        storage.replace((String) searchKey, resume);
+        storage.replace(((Resume) searchKey).getUuid(), resume);
     }
 
     @Override
     protected Resume getResume(Object searchKey) {
-        return storage.get(searchKey);
+        return storage.get(((Resume) searchKey).getUuid());
     }
 
     @Override
-    protected Object getSearchKey(String fullName) {
-        return fullName;
+    protected Object getSearchKey(String uuid) {
+        Resume resume = storage.get(uuid);
+        return (resume != null) ? resume : uuid;
     }
-
 
     @Override
     protected List<Resume> getAll() {
-        return List.of(storage.values().toArray(new Resume[0]));
+        return new ArrayList<>(List.of(storage.values().toArray(new Resume[0])));
     }
 
     @Override
     protected boolean isExist(Object searchKey) {
-        return storage.containsKey(searchKey);
+        return searchKey instanceof Resume;
     }
 
     @Override

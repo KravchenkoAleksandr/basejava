@@ -6,10 +6,11 @@ import com.webapp.model.Resume;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 public abstract class AbstractStorage implements Storage {
+
+    private static final Comparator<Resume> COMPARATOR = Comparator.comparing(Resume::getFullName)
+            .thenComparing(Resume::getUuid);
 
     @Override
     public void save(Resume resume) {
@@ -37,13 +38,9 @@ public abstract class AbstractStorage implements Storage {
 
     @Override
     public List<Resume> getAllSorted() {
-        List<Resume> storageSorted = getAll();
-        storageSorted = storageSorted.stream()
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
-        storageSorted.sort(Comparator.comparing(Resume::getFullName)
-                .thenComparing(Resume::getUuid));
-        return storageSorted;
+        List<Resume> sortedList = getAll();
+        sortedList.sort(COMPARATOR);
+        return sortedList;
     }
 
     private Object getExistingSearchKey(String uuid) {
