@@ -7,42 +7,42 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MapStorage extends AbstractStorage {
+public class MapUuidStorage extends AbstractStorage<String> {
     private final Map<String, Resume> storage = new LinkedHashMap<>();
 
 
     @Override
-    protected void addResume(Object searchKey, Resume resume) {
-        storage.put((String) searchKey, resume);
+    protected void doSave(String searchKey, Resume resume) {
+        storage.put(searchKey, resume);
     }
 
     @Override
-    protected void removeResume(Object searchKey) {
+    protected void doDelete(String searchKey) {
         storage.remove(searchKey);
     }
 
     @Override
-    protected void updateResume(Resume resume, Object searchKey) {
-        storage.replace((String) searchKey, resume);
+    protected void doUpdate(Resume resume, String searchKey) {
+        storage.replace(searchKey, resume);
     }
 
     @Override
-    protected Resume getResume(Object searchKey) {
+    protected Resume doGet(String searchKey) {
         return storage.get(searchKey);
     }
 
     @Override
-    protected Object getSearchKey(String uuid) {
+    protected String getSearchKey(String uuid) {
         return uuid;
     }
 
     @Override
-    protected List<Resume> getAll() {
-        return new ArrayList<>(List.of(storage.values().toArray(new Resume[0])));
+    protected List<Resume> doCopyAll() {
+        return new ArrayList<>(storage.values());
     }
 
     @Override
-    protected boolean isExist(Object searchKey) {
+    protected boolean isExist(String searchKey) {
         return storage.containsKey(searchKey);
     }
 

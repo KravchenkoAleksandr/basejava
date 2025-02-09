@@ -28,10 +28,6 @@ public abstract class AbstractStorageTest {
         storage.save(RESUME_1);
         storage.save(RESUME_2);
         storage.save(RESUME_3);
-        System.out.println("UUIDs в хранилище:");
-        for (Resume r : storage.getAllSorted()) {
-            System.out.println(r.getUuid());
-        }
     }
 
     @Test

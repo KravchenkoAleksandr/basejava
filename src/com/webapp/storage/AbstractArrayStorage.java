@@ -6,7 +6,7 @@ import com.webapp.model.Resume;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class AbstractArrayStorage extends AbstractStorage {
+public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     protected static final int STORAGE_LIMIT = 10000;
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size = 0;
@@ -16,31 +16,31 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         size = 0;
     }
 
-    public void addResume(Object searchKey, Resume resume) {
+    public void doSave(Integer searchKey, Resume resume) {
         if (size >= STORAGE_LIMIT) {
             throw new StorageException("Storage oferflow", resume.getUuid());
         }
-        saveResume(resume, (Integer) searchKey);
+        insertElement(resume, searchKey);
         size++;
     }
 
-    public void removeResume(Object searchKey) {
-        deleteResume((Integer) searchKey);
+    public void doDelete(Integer searchKey) {
+        fillDeletedElement(searchKey);
         storage[size - 1] = null;
         size--;
     }
 
-    public void updateResume(Resume resume, Object searchKey) {
-        storage[(Integer) searchKey] = resume;
+    public void doUpdate(Resume resume, Integer searchKey) {
+        storage[searchKey] = resume;
     }
 
-    public final Resume getResume(Object searchKey) {
-        return storage[(Integer) searchKey];
+    public final Resume doGet(Integer searchKey) {
+        return storage[searchKey];
     }
 
     @Override
-    public List<Resume> getAll() {
-        return Arrays.asList(Arrays.copyOf(storage, size));
+    public List<Resume> doCopyAll() {
+        return Arrays.asList(Arrays.copyOfRange(storage, 0, size));
     }
 
     @Override
@@ -49,11 +49,13 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isExist(Object searchKey) {
-        return (Integer) searchKey >= 0;
+    protected boolean isExist(Integer searchKey) {
+        return searchKey >= 0;
     }
 
-    protected abstract void deleteResume(int index);
+    protected abstract void fillDeletedElement(int index);
 
-    protected abstract void saveResume(Resume resume, int index);
+    protected abstract void insertElement(Resume resume, int index);
+
+    protected abstract Integer getSearchKey(String uuid);
 }
