@@ -12,4 +12,11 @@ public class ExperienceSection extends AbstractSection {
     public List<Company> getCompanies() {
         return companies;
     }
+
+    @Override
+    public String toString() {
+        return "ExperienceSection{" +
+                "companies=" + companies +
+                '}';
+    }
 }
