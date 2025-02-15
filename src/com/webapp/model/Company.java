@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 public class Company {
     private final String name;
-    private String link;
+    private final String link;
     private final List<Period> periods;
 
     public Company(String name, String link, List<Period> periods) {
