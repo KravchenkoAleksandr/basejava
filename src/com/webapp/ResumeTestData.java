@@ -37,7 +37,7 @@ public class ResumeTestData {
         resume.addSection(SectionType.EXPERIENCE, new ExperienceSection(List.of(new Company("Java Online Projects", "http://javaops.ru/", List.of(new Company.Period(LocalDate.of(2013, 10, 1), null,
                 "Автор проекта", "Создание, организация и проведение Java онлайн проектов и стажировок."))))));
 
-        resume.addSection(SectionType.EDUCATION, new ExperienceSection(List.of(new Company("Coursera", "https://www.coursera.org/course/progfun",
+        resume.addSection(SectionType.EDUCATION, new EducationSection(List.of(new Company("Coursera", "https://www.coursera.org/course/progfun",
                 List.of(new Company.Period(LocalDate.of(2013, 3, 1),
                         LocalDate.of(2013, 5, 1), "", "\n" +
                         "'Functional Programming Principles in Scala' by Martin Odersky"))))));
