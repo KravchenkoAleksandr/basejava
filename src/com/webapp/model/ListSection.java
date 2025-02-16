@@ -1,6 +1,7 @@
 package com.webapp.model;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ListSection extends AbstractSection {
     private final List<String> items;
@@ -11,6 +12,18 @@ public class ListSection extends AbstractSection {
 
     public List<String> getItems() {
         return items;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ListSection that)) return false;
+        return Objects.equals(items, that.items);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(items);
     }
 
     @Override

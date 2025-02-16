@@ -34,10 +34,10 @@ public class ResumeTestData {
                 "DB: PostgreSQL(наследование, pgplsql, PL/Python), Redis (Jedis), H2, Oracle, MySQL, SQLite, MS SQL, HSQLDB",
                 "Languages: Java, Scala, Python/Jython/PL-Python, JavaScript, Groovy")));
 
-        resume.addSection(SectionType.EXPERIENCE, new ExperienceSection(List.of(new Company("Java Online Projects", "http://javaops.ru/", List.of(new Company.Period(LocalDate.of(2013, 10, 1), null,
+        resume.addSection(SectionType.EXPERIENCE, new CompanySection(List.of(new Company("Java Online Projects", "http://javaops.ru/", List.of(new Company.Period(LocalDate.of(2013, 10, 1), null,
                 "Автор проекта", "Создание, организация и проведение Java онлайн проектов и стажировок."))))));
 
-        resume.addSection(SectionType.EDUCATION, new EducationSection(List.of(new Company("Coursera", "https://www.coursera.org/course/progfun",
+        resume.addSection(SectionType.EDUCATION, new CompanySection(List.of(new Company("Coursera", "https://www.coursera.org/course/progfun",
                 List.of(new Company.Period(LocalDate.of(2013, 3, 1),
                         LocalDate.of(2013, 5, 1), "", "\n" +
                         "'Functional Programming Principles in Scala' by Martin Odersky"))))));
@@ -50,7 +50,7 @@ public class ResumeTestData {
 
         System.out.println("\nКонтакты:");
         for (ContactType type : resume.getContacts().keySet()) {
-            System.out.println(type + ": " + resume.getContacts().get(type));
+            System.out.println(type.getValue() + ": " + resume.getContacts().get(type));
         }
 
         System.out.println("\nСекции:");
